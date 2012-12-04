@@ -1,0 +1,50 @@
+<%- model_class = Video -%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title><%= yield_for(:title, "Administrate") %> | 壹旅游</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= yield :styles %>
+  <%= javascript_include_tag "application" %>
+  <%= yield :scripts %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="frame" id="videos">
+    <div class="small-logo clearfix">
+      <% if %w(show search).include?(action_name) -%>
+          <a href="<%= videos_path %>">返回列表</a>
+      <% end %>
+      <%= image_tag "index/small.logo.png", :alt => "壹旅游", :title => "壹旅游" %>
+    </div>
+    <div class="well white-bg">
+      <div id="toolbar" class="btn-toolbar clearfix">
+        <div class="btn-group pull-center">
+          <div class="controls pagination-right search">
+            <%= simple_form_for :video, :url => search_videos_path do |v| -%>
+            <div class="input-append">
+              <%= v.input_field :name, :placeholder => t("helpers.placeholder.search", :model => model_class.model_name.human), :value => nil %>
+              <button type="submit" class="btn"><i class="icon-search"></i></button>
+            </div>
+            <% end -%>
+          </div>
+        </div>
+      </div>
+      <%= bootstrap_flash %>
+      <div class="well-inner">
+        <%= yield %>
+        
+        <% if %w(show search).include?(action_name) -%>
+          <div class="back_to"><a href="<%= videos_path %>">返回列表</a></div>
+        <% end %>
+        <div class = "data" id= "copyright">
+          <span class= "other_2">Copyright &nbsp © &nbsp 壹旅游 2011-2012 &nbsp <%= MobileVideo.version %></span>
+        </div>
+      </div>
+  </div>
+  
+</div>
+</body>
+</html>

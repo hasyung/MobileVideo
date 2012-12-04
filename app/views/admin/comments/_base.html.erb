@@ -1,0 +1,27 @@
+<%- model_class = Comment -%>
+
+<%= content_for :title do -%>
+	<% if %w(index).include?(action_name) -%>
+		<%= t("helpers.links.list", :model => model_class.model_name.human) %>
+	<% end -%>
+<% end -%>
+<%= content_for :toolbar do -%>
+	<div class="btn-group">
+		<% if %w(index).include?(action_name) -%>		
+			<a href="<%= admin_videos_path %>" class="btn">
+				<i class="icon-table icon-large"></i><b><%= t("helpers.links.back_list") %>
+			</b>
+			</a>
+		<% end -%>
+	</div>
+	<div class="btn-group pull-right">
+		<div class="controls pagination-right search">
+		    <%= simple_form_for :video, :url => search_admin_videos_path do |v| -%>
+		      <div class="input-append">
+		        <%= v.input_field :name, :placeholder => t("helpers.placeholder.search", :model => Video.model_name.human), :value => nil %>
+		        <button type="submit" class="btn"><i class="icon-search"></i></button>
+		      </div>
+	    <% end -%>
+	  </div>
+	</div>
+<% end -%>

@@ -1,0 +1,108 @@
+/*
+ *= require admin/bootstrap-and-fontawesome
+ *= require jplayer.pink.flag
+ *= require_self
+ */
+
+/* 表单 */
+.simple_form .help-block {
+  color: #ccc;
+  font-size: 12px;
+  margin-bottom: 0; 
+  text-align: left;
+}
+#videos .simple_form textarea{
+  height: 100px;
+  margin: 0;
+}
+#videos .simple_form .icon-large{
+  display:inline-block;
+  margin-top:6px;
+}
+#videos .control-label{
+  font-size: 14px;
+  text-align: left;
+  margin-top: 5px;
+}
+.simple_form .form-actions{
+  margin: 0;
+  padding: 5px 0;
+}
+
+#videos .well-inner{
+  margin-top:10px;
+  text-align:center;
+}
+#videos .btn-toolbar{
+  margin:0 auto;
+  text-align:center;
+}
+
+#videos_index{
+  width:250px;
+}
+#videos_index .video_index{
+  margin-left:0;
+  margin-bottom:20px;
+}
+#videos_index{
+  margin:0 auto;
+  text-align:center;
+}
+#videos div.well{
+ 	margin-bottom: -10px;
+ }
+#videos div.input-append{
+ 	text-align: right;
+ }
+ #videos input.required{
+	width: 80%;
+ }
+#videos div.article{
+  margin-top:20px;
+  p{
+    font-size:14px;
+  }
+}
+#videos .video_index a{
+  margin-bottom: 5px;
+}
+
+/* 表格页脚 */
+#videos .table-footer .pagination{
+  margin-top:10px;
+}
+#videos_index .other{
+  margin-bottom:2px;
+  font-weight: bold;
+  font-size:16px;
+}
+
+div.search .btn{
+  margin-left:-5px;
+}
+#jp_container_1{
+  margin-bottom: 10px;
+}
+#videos .publish{
+  margin-top:15px;
+  margin-bottom:15px;
+}
+.comment h4, #videos .simple_form label{
+  color:#000;
+  font-weight: bold;
+  font-size:16px;
+}
+.comment{
+  text-align:left;
+}
+.comment span{
+  color:#999;
+  font-size:12px;
+  padding-right:10px;
+}
+.comment p{
+  margin-bottom:3px;
+  margin-left:5px;
+  font-size:14px;
+}

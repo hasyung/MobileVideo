@@ -1,0 +1,88 @@
+<%- model_class = Video -%>
+
+<%= content_for :title do -%>
+	<% if %w(index comment).include?(action_name) -%>
+		<%= t("helpers.links.list", :model => model_class.model_name.human) %>
+	<% end -%>
+	<% if %w(new create).include?(action_name) -%>
+		<%= t("helpers.submit.create", :model => model_class.model_name.human) %>
+	<% end -%>
+
+	<% if %w(edit update).include?(action_name) -%>
+		<%= t("helpers.submit.update", :model => model_class.model_name.human) %>
+	<% end -%>
+	<% if %w(show).include?(action_name) -%>
+		<%= @video.name %>
+	<% end -%>
+
+	<% if %w(search).include?(action_name) -%>
+		<%= t("helpers.links.search", :model => model_class.model_name.human) %>
+	<% end -%>
+<% end -%>
+<%= content_for :toolbar do -%>
+	<div class="btn-group">
+		<% if %w(index search).include?(action_name) -%>
+			<a href="javascript:void(0);" class="btn destroy-multiple" <%= "disabled=\"disabled\"" if @videos.blank? %>>
+					<i class="icon-trash icon-large"></i>
+					<b><%= t("helpers.links.delete_all") %></b>
+			</a>
+		<% end -%>
+		<% if %w(new create edit update search show comment).include?(action_name) -%>		
+			<a href="<%= admin_videos_path %>" class="btn">
+				<i class="icon-table icon-large"></i><b><%= t("helpers.links.back_list") %>
+			</b>
+			</a>
+		<% end -%>
+		<% if %w(show).include?(action_name) -%>		
+			<a href="<%= edit_admin_video_path %>" class="btn">
+				<i class="icon-edit icon-large"></i><b><%= t("helpers.links.edit") %></b>
+			</a>
+		<% end -%>
+		<% if %w(show index comment).include?(action_name) -%>		
+			<a href="<%= new_admin_video_path %>" class="btn">
+				<i class="icon-film icon-large"></i><b><%= t("helpers.links.add_video") %></b>
+			</a>
+		<% end -%>
+    		<% if %w(show index).include?(action_name) -%>		
+			<a href="<%= admin_comments_path %>" class="btn">
+				<i class="icon-file icon-large"></i><b><%= t("helpers.links.comment") %></b>
+			</a>
+		<% end -%>
+	 	
+	</div>
+	<% if %w(show).include?(action_name) -%>				
+		<div class="btn-group">
+		  <% if @video.draft? %>
+		  	<a href="#" class="btn btn-success">
+		      <i class="icon-lock icon-large"></i>
+		    </a>
+		  <% end -%>
+		  <% if @video.publish? %>
+		  	<a href="#" class="btn btn-success">
+		      <i class="icon-unlock icon-large"></i>
+		    </a>
+		  <% end -%>
+		</div>
+	<% end %>
+	<div class="btn-group pull-right">
+		<div class="controls pagination-right search">
+		    <%= simple_form_for :video, :url => search_admin_videos_path do |v| -%>
+		      <div class="input-append">
+		        <%= v.input_field :name, :placeholder => t("helpers.placeholder.search", :model => model_class.model_name.human), :value => nil %>
+		        <button type="submit" class="btn"><i class="icon-search"></i></button>
+		      </div>
+	    <% end -%>
+	  </div>
+	</div>
+<% end -%>
+<%= content_for :sidebar do -%>
+	<% if %w(new create edit update).include?(action_name) -%>
+		<div class="well warning-bg">
+			<ul class="nav nav-list">
+			  <li class="nav-header"><%= t("helpers.links.tips") %></li>
+			  <li>名字和视频不能为空。</li>
+			  <li>视频文件只能是（mp4）格式的。</li>
+			</ul>
+		</div>
+	<% end -%>
+<% end -%>

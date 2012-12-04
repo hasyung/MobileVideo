@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= yield_for(:title, "Administrate") %> | 壹旅游</title>
+    <%= csrf_meta_tags %>
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <%= stylesheet_link_tag "admin/application", :media => "all" %>
+    <%= yield :styles %>
+  </head>
+  <body id="<%= "#{controller_name}-#{action_name}" %>">
+    <% if !%w(sessions).include?(controller_name) %>
+      <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="<%= admin_root_path %>" title="壹旅游">
+              <%= image_tag "home.png", :alt => "壹旅游" %>
+              <span class="home">首页</span>
+            </a>
+            <div class="container nav-collapse">
+              <ul class="nav pull-right">
+                <% if user_signed_in? %>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="icon-user-md"></i> <%= current_user.email %> <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li class="divider"></li>
+                      <li><%= link_to(t("helpers.links.logout"), destroy_user_session_path, :method => :delete) %></li>
+                    </ul>
+                  </li>
+                <% end -%>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="container">
+      <div class="content">
+        <div class="row">
+          <div id="main" class="<%= %w(sessions).include?(controller_name)  ? "span4" : (content_for?(:sidebar) ? "span9" : "span12") %>">
+            <div class="well white-bg">
+              <% if content_for? :toolbar -%>
+                <div id="toolbar" class="btn-toolbar clearfix">
+                  <%= yield :toolbar %>
+                </div>
+              <% end -%>
+              <%= bootstrap_flash %>
+              <div class="well-inner">
+                <%= yield %>
+              </div>
+            </div>
+          </div>
+          <% if content_for? :sidebar -%>
+            <div id="sidebar" class="span3">
+                <%= content_for :sidebar %>
+            </div>
+          <% end -%>
+        </div>
+      </div>
+
+      <% if !%w(sessions).include?(controller_name) %>
+        <footer>
+          <p>壹旅游 &copy; Company 2012</p>
+          <p><%= MobileVideo.version %></p>
+        </footer>
+      <% end %>
+
+    </div>
+    <%= javascript_include_tag "admin/application" %>
+    <%= yield :scripts %>
+  </body>
+</html>
+

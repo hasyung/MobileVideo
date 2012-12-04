@@ -1,0 +1,102 @@
+<%= content_for :title do -%>
+	<%= @video.name %>
+<% end -%>
+
+<%= error_messages_for @comment, :class => "control-group alert alert-error fade in", :close => :true %>
+<div class="video">
+	<h2><%= @video.name %></h2>
+	<div id="jp_container_1" class="jp-video jp-video-360p">
+		<div class="jp-type-single">
+			<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+			<div id="jp-gui" class="jp-gui">
+				<div class="jp-video-play">
+					<a href="javascript:;" class="jp-video-play-icon" tabindex="1">play</a>
+				</div>
+				<div class="jp-interface">
+					<div class="jp-progress">
+						<div class="jp-seek-bar">
+							<div class="jp-play-bar"></div>
+						</div>
+					</div>
+					<div class="jp-current-time"></div>
+					<div class="jp-duration"></div>
+					<div class="jp-controls-holder">
+						<ul class="jp-controls">
+							<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+							<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <span class="content">文件大小:</span>
+  <span class="prompt"><%= (@video.video_size / (1024*1024.0)).round(2) %>M</span> &nbsp
+  <span class="content">时长:</span>
+  <span class="prompt"><%= @video.duration %></span>
+<% if !@video.description.blank? %>
+	<div class= "article">
+	  	<p> &nbsp&nbsp &nbsp &nbsp <%= @video.description %></p>
+	</div>
+<% end %>
+</div>
+
+<div class="publish">
+  <% if @video.draft? %>
+    <a href="<%= publish_video_path(@video, Video.statuses.publish(true)) %>" class="btn btn-success">
+      通过
+    </a>
+  <% end -%>
+  <% if @video.publish? %>
+    <a href="<%= publish_video_path(@video, Video.statuses.draft(true)) %>" class="btn btn-danger">
+      未通过
+    </a>
+  <% end -%>
+</div>
+<div class= "comment">
+  <h4>历史评语</h4>
+  <% if @video.comments.count < 1 %>
+    <p> 无数据 </p>
+  <% else %>
+    <% @video.comments.each_with_index do |comment, index| %>
+    		<% if @video.comments.count != index %>
+    			<p><span><%= l comment.created_at.to_time, :format => :long %></span><%= comment.body %></p>
+    		<% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= simple_form_for [@video, @comment] do |f| %>
+  <%= f.input :body, :as => :text, :input_html => { :class => "span-full", :value => "" } %>
+	<div class="form-actions">
+    <button type="submit" class="btn btn-primary">
+    	<i class="icon-save icon-large"></i>
+    	<b><%= t("helpers.submit.comment") %></b>
+    </button>
+	</div>
+<% end %>
+    
+<%= content_for :scripts do -%>
+  <script type="text/javascript">
+    $(document).ready(function(){
+			$("#jquery_jplayer_1").jPlayer({
+				ready: function () {
+					$(this).jPlayer("setMedia", {
+						m4v: "<%= @video.video.url %>",
+            poster:"<%= @video.cover.thumb_small.url %>"
+					});
+				},
+				swfPath: "/Js",
+				supplied: "m4v,ogv",
+				wmode: "window",
+				solution: "html,flash",
+				preload: "none",
+				size: {
+					width: "250px",
+					height: "150px"
+				},
+				cssSelectorAncestor: "#jp_container_1"
+			});
+		});
+  </script>
+<% end -%>

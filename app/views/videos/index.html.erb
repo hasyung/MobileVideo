@@ -1,0 +1,28 @@
+<%- model_class = Video -%>
+
+<%= content_for :title do -%>
+  <%= t("helpers.links.list", :model => model_class.model_name.human) %>
+<% end -%>
+<div id="videos_index" class="thumbnails">
+	<% @videos.each do |video| -%>
+		<% if !video.blank? %>
+        <div class="span3 video_index">
+          <div class="other">
+            <span class="name"><%= truncate(video.name, :length => 16, :separator => ' ') %></span>
+          </div>
+          <a href="<%= video_path(video) %>" class="thumbnail">
+            <%= image_tag video.cover.thumb_small.url %>
+          </a>
+          <span class="content">文件大小:</span>
+          <span class="prompt"><%= (video.video_size / (1024*1024.0)).round(2) %>M</span> &nbsp
+          <span class="content">时长:</span>
+          <span class="prompt"><%= video.duration %></span>
+        </div>
+      <% end -%>
+	<% end -%>
+</div>
+
+<div class="table-footer clearfix">
+  <div class="paginates-info clearfix"><%= page_entries_info @videos %></div>
+  <%= paginate @videos %>
+</div>

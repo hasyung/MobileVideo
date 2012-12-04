@@ -1,0 +1,39 @@
+<%- model_class = Video -%>
+
+<%= simple_form_for [:admin, @video], :html => { :multipart => true } do |f| %>
+	<fieldset>
+  	<% if %w(new create).include?(action_name) %>
+	  	<legend><%= t("helpers.submit.create", :model => model_class.model_name.human) %></legend>
+  	<% end -%>
+  	<% if %w(edit update).include?(action_name) %>
+	  	<legend><%= t("helpers.submit.update", :model => model_class.model_name.human) %></legend>
+  	<% end -%>
+  	<%= error_messages_for @video, :class => "control-group alert alert-error fade in", :close => :true %>
+	  <%= f.input :name, :input_html => { :class => "span-full" } %>
+	  <%= f.input :video, :as => :file %>
+     <%= f.input :duration, :as => :string %>
+   	<%= f.input :cover, :as => :file %>
+  	<% if %w(edit update).include?(action_name) %>
+    	<div class="control-group map">
+		  	<%= image_tag @video.cover.thumb_small.url %>
+		  	<%= f.input :cover, :as => :hidden %>
+		  </div>
+   	<% end -%>
+	  <%= f.input :description, :as => :text, :input_html => { :class => "span-full" } %>
+	  <div class="form-actions">
+	    <button type="submit" class="btn btn-primary">
+	    	<i class="icon-save icon-large"></i>
+	    	<% if %w(new create).include?(action_name) %>
+		    	<b><%= t("helpers.submit.create", :model => model_class.model_name.human) %></b>
+	    	<% end -%>
+	    	<% if %w(edit update).include?(action_name) %>
+	    		<b><%= t("helpers.submit.update", :model => model_class.model_name.human) %></b>
+	    	<% end -%>
+	    </button>
+	    <a href="<%= admin_videos_path %>" class="btn">
+	    	<i class="icon-ban-circle icon-large"></i>
+	    	<b><%= t("helpers.links.cancel") %></b>
+	    </a>
+	  </div>
+	</fieldset>
+<% end %>

@@ -1,0 +1,48 @@
+<%- model_class = Video -%>
+
+<%= render "base" %>
+<%= simple_form_for :video, :url => destroies_admin_videos_path, :html => { :class => "search-form" }  do |f| -%>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th class="select-all"><%= check_box_tag "select_all" %></th>
+        <th class="name"><%= model_class.human_attribute_name(:name) %></th>
+        <th><%= model_class.human_attribute_name(:duration) %></th>
+        <th><%= model_class.human_attribute_name(:created_at) %></th>
+        <th class="actions"><%= model_class.human_attribute_name(:status_cd) %></th>
+        <th class="actions"><%= t("helpers.links.action") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @videos.each do |video| %>
+        <tr>
+          <td class="select-all">
+            <%= check_box_tag "video_ids[]", video.id, false, :id => "video_#{video.id}" %>
+          </td>
+          <td class="name"><%= truncate(video.name, :length => 40, :separator => ' ') %></td>
+          <td><%= video.duration %></td>
+          <td><%= l video.created_at.to_date, :format => :long %></td>
+          <td class="actions"><%= t("activerecord.enums.video.statuses.#{model_class.statuses.key(video.status_cd)}") %></td>
+          <td class="actions">
+            <%= link_to raw("<i class=\"icon-eye-open icon-large\"></i>"), admin_video_path(video), 
+                        :title => t("helpers.links.read", :model_name => video.name),
+                        :rel => :tooltip %>
+              <%= link_to raw("<i class=\"icon-edit icon-large\"></i>"), edit_admin_video_path(video), 
+                          :title => t("helpers.links.edit", :model_name => video.name),
+                          :rel => :tooltip %>
+              <%= link_to raw("<i class=\"icon-trash icon-large\"></i>"), admin_video_path(video),
+                          :method => :delete,
+                          :title => t("helpers.links.destroy", :model_name => video.name),
+                          :data => { :confirm => t("helpers.messages.confirm") },
+                          :rel => :tooltip %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end -%>
+
+<div class="table-footer clearfix">
+  <div class="paginates-info"><%= page_entries_info @videos %></div>
+  <%= paginate @videos, :theme => "admin" %>
+</div>
