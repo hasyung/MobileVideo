@@ -1,9 +1,10 @@
 class Video < ActiveRecord::Base
-  attr_accessible :name, :video, :description, :duration, :cover, :status_cd
+  attr_accessible :name, :video, :description, :duration, :cover, :status_cd, :comments_attributes
 
    # Associations
-  has_many :comments, :order => "created_at DESC"
-  
+  has_many :comments, :as => :commentable, :dependent => :destroy, :order => "created_at DESC"
+  accepts_nested_attributes_for :comments, :reject_if => lambda { |a| a[:body].blank? }, :allow_destroy => true
+    
    # Callbacks
   before_save :update_video_attributes, :update_cover_attributes
 

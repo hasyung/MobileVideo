@@ -1,5 +1,6 @@
 <%- model_class = Video -%>
 
+<%= render "base" %>
 <%= content_for :title do -%>
   <%= t("helpers.links.list", :model => model_class.model_name.human) %>
 <% end -%>

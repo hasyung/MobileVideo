@@ -16,14 +16,14 @@
     <tbody>
       <% @comments.each do |comment| %>
         <tr>
-          <td class="name"><%= truncate(comment.video.name, :length => 20, :separator => ' ') %></td>
+          <td class="name"><%= truncate(Video.find(comment.commentable_id).name, :length => 20, :separator => ' ') %></td>
           <th class="name"><%= truncate(comment.body, :length => 40, :separator => ' ') %></th>
-          <td class="actions"><%= t("activerecord.enums.video.statuses.#{Video.statuses.key(comment.video.status_cd)}") %></td>
+          <td class="actions"><%= t("activerecord.enums.video.statuses.#{Video.statuses.key(Video.find(comment.commentable_id).status_cd)}") %></td>
           <td><%= l comment.created_at.to_time, :format => :long %></td>
           <td class="actions">
             <%= link_to raw("<i class=\"icon-eye-open icon-large\"></i>"), 
-                          admin_video_path(comment.video), 
-                          :title => t("helpers.links.read", :model_name => comment.video.name),
+                          admin_video_path(Video.find(comment.commentable_id)), 
+                          :title => t("helpers.links.read", :model_name => Video.find(comment.commentable_id).name),
                           :rel => :tooltip %>
           </td>
         </tr>
