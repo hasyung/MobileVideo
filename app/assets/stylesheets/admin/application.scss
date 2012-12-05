@@ -20,7 +20,7 @@ legend {
 	width: 99%;
 }
 
- /*show*/
+/*show*/
 div.video{
 	text-align: center;
 	margin-bottom:20px; 
@@ -37,7 +37,8 @@ div.video{
  td.actions a{
  	margin-right: 15px;
  }
- /* 表单 */
+ 
+/* 表单 */
 .simple_form {
   .help-block {
   	color: #ccc;
@@ -68,24 +69,24 @@ div.video{
 	}
 }
 
-button.btn{
+button.btn {
 	vertical-align:middle;
-	i.icon-large{
+	i.icon-large {
 		display:inline-block;
 		margin-top:6px;
 	}
 }
-a.btn{
-  i.icon-large{
+a.btn {
+  i.icon-large {
 		display:inline-block;
     padding-top:6px;
 		margin-right:4px;
 	}
 }
-div.video{
+div.video {
   text-align:center;
 }
-span.prompt{
+span.prompt {
 	color:#a2201a;
 }
 #videos_index .thumbnail {
@@ -93,16 +94,16 @@ span.prompt{
   margin-left:0;
 }
   
-#videos div.article{
+#videos div.article {
   margin-top:20px;
   p{
     font-size:14px;
   }
 }
-#videos-index .name{
+#videos-index .name {
   width:500px;
 }
-#videos-index .actions,#videos-index .select-all{
+#videos-index .actions,#videos-index .select-all {
   text-align:center;
 }
 /* 登录页面 */
@@ -158,57 +159,58 @@ span.prompt{
 div.search .btn{
   margin-left:-5px;
 }
- .brand,  .dropdown-toggle{
+.brand, .dropdown-toggle {
   padding-bottom:-5px;
   margin-bottom:-5px;
 }
 
-.dropdown-toggle{
+.dropdown-toggle {
   margin-top:5px;
 }
-.home{
+
+.home {
   font-size:14px;
   font-weight: bold;
   color:#ccc;
 }
 
-div.content{
+div.content {
   margin-top:70px;
 }
-div.btn-group{
+div.btn-group {
   margin-bottom:10px;
 }
-#toolbar{
+#toolbar {
   margin-bottom:0;
   margin-top:12px;
   div{
   margin-bottom:0;
   }
 }
-.row{
+.row {
 	margin-top:10px;
-	.well{
+	.well {
 		padding-top:5px
 	}
 }
-h4.comment{
+h4.comment {
 	margin-bottom:5px;
 }
 
-.comment span{
+.comment span {
   color:#999;
   font-size:12px;
   padding-right:10px;
 }
 
-#comments-index{
-	.name{
+#comments-index {
+	.name {
 		width:20%;
 	}
-	.body{
+	.body {
 		width:50%;
 	}
-	.actions{
+	.actions {
 		text-align:center;
 	}
 }
