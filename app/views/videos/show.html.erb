@@ -1,3 +1,4 @@
+<%= render "base" %>
 <%= content_for :title do -%>
 	<%= @video.name %>
 <% end -%>
@@ -53,21 +54,21 @@
     </a>
   <% end -%>
 </div>
-<div class= "comment">
-  <h4>历史评语</h4>
-  <% if @video.comments.count < 1 %>
-    <p> 无数据 </p>
-  <% else %>
+<% if @video.comments.count > 0 %>
+  <div class= "comment">
+    <h4>历史评语</h4>
     <% @video.comments.each_with_index do |comment, index| %>
     		<% if @video.comments.count != index %>
     			<p><span><%= l comment.created_at.to_time, :format => :long %></span><%= comment.body %></p>
     		<% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
 
-<%= simple_form_for [@video, @comment] do |f| %>
-  <%= f.input :body, :as => :text, :input_html => { :class => "span-full", :value => "" } %>
+<%= simple_form_for @video do |f| %>
+  <%= f.fields_for :comments, @comment do |c|  %>  
+    <%= c.input :body, :as => :text, :input_html => { :class => "span-full" } %>
+  <% end %>
 	<div class="form-actions">
     <button type="submit" class="btn btn-primary">
     	<i class="icon-save icon-large"></i>

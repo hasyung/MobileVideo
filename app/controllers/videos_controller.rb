@@ -7,6 +7,20 @@ class VideosController < ApplicationController
     @video = Video.find params[:id]
     @comment = @video.comments.new
 	end
+  
+  def update
+		@video = Video.find params[:id]
+    count = @video.comments.count
+    if @video.update_attributes params[:video]
+      if count < @video.comments.count
+     	 redirect_to video_path(@video), :notice => t("helpers.messages.new", :model_name => Comment.model_name.human)
+      else
+        redirect_to video_path(@video)
+      end
+    else
+     	render :show
+    end
+	end
 
 	def search
 		if params[:video][:name].blank?

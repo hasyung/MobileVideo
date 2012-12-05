@@ -1,13 +1,16 @@
 class Video < ActiveRecord::Base
-  attr_accessible :name, :video, :description, :duration, :cover, :status_cd
+  attr_accessible :name, :video, :description, :duration, :cover, :status_cd, :comments_attributes
 
-   # Associations
-  has_many :comments, :order => "created_at DESC"
+  # Associations
+  has_many :comments, :as => :commentable, :dependent => :destroy, :order => "created_at DESC"
   
-   # Callbacks
+  # NestedAttributes
+  accepts_nested_attributes_for :comments, :reject_if => lambda { |a| a[:body].blank? }, :allow_destroy => true
+    
+  # Callbacks
   before_save :update_video_attributes, :update_cover_attributes
 
-   #SimpleEnum
+  # SimpleEnum
   as_enum :status, { :draft => 0, :publish => 1 }
   
   # Carrierwave
@@ -32,16 +35,20 @@ class Video < ActiveRecord::Base
   scope :created_desc, order("created_at DESC")
   scope :search_name, lambda { |name| where("ucase(`videos`.`name`) like concat('%',ucase(?),'%')", name) }
 
+  # PrivateMethods
+  private
   def update_video_attributes
     if video.present? && video_changed?
       self.video_size = video.file.size
       self.video_content_type = video.file.content_type
     end
   end
+  
   def update_cover_attributes
     if cover.present? && cover_changed?
       self.cover_size = cover.file.size
       self.cover_content_type = cover.file.content_type
     end
   end
+  
 end

@@ -1,0 +1,32 @@
+<%- model_class = Video -%>
+<%= content_for :toolbar do -%>
+  <div class="small-logo clearfix">
+    <% if %w(show search).include?(action_name) -%>
+        <a href="<%= videos_path %>">返回列表</a>
+    <% end %>
+    <%= image_tag "index/small.logo.png", :alt => "壹旅游", :title => "壹旅游" %>
+  </div>
+  <div class="well white-bg">
+    <div id="toolbar" class="btn-toolbar clearfix">
+      <div class="btn-group pull-center">
+        <div class="controls pagination-right search">
+          <%= simple_form_for :video, :url => search_videos_path do |v| -%>
+            <div class="input-append">
+              <%= v.input_field :name, :placeholder => t("helpers.placeholder.search", :model => model_class.model_name.human), :value => nil %>
+              <button type="submit" class="btn"><i class="icon-search"></i></button>
+            </div>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<%= content_for :sidebar do -%>
+  <% if %w(show search).include?(action_name) -%>
+    <div class="back_to"><a href="<%= videos_path %>">返回列表</a></div>
+  <% end %>
+  <div class = "data" id= "copyright">
+    <p class= "other_2">Copyright &nbsp ©  壹旅游 2011-2012</p>
+    <p class= "other_2">版本：<%= MobileVideo::VERSION %></p>
+  </div>
+<% end %>
