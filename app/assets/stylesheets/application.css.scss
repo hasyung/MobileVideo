@@ -67,12 +67,38 @@
  }
 #videos div.article{
   margin-top:20px;
-  p{
+  p {
     font-size:14px;
   }
 }
 #videos .video_index a{
   margin-bottom: 5px;
+}
+#videos .publish a {
+  width:250px;
+  height:150px;
+  position:relative;
+}
+#videos .publish span {
+  position: absolute;
+  display: block;
+  top: 10px;
+  left: 10px;
+  padding: 3px;
+  color: #fff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+#videos .publish span.success {
+  background: #5BB65B;
+}
+#videos .publish span.danger {
+  background: #BD362F;
+}
+#videos .publish a img {
+  z-index:1;
+  margin: 0;
 }
 
 /* 表格页脚 */
