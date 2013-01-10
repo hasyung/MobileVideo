@@ -11,9 +11,20 @@
           <div class="other">
             <span class="name"><%= truncate(video.name, :length => 16, :separator => ' ') %></span>
           </div>
-          <a href="<%= video_path(video) %>" class="thumbnail">
-            <%= image_tag video.cover.thumb_small.url %>
-          </a>
+          <div class="publish">
+            <% if video.draft? %>
+              <a href="<%= video_path(video) %>" class="thumbnail">
+                <%= image_tag video.cover.thumb_small.url %>
+                <span class="success">通过</span>
+              </a>
+            <% end -%>
+            <% if video.publish? %>
+              <a href="<%= video_path(video) %>" class="thumbnail">
+                <%= image_tag video.cover.thumb_small.url %>
+                <span class="danger">未通过</span>
+              </a>
+            <% end -%>
+          </div>
           <span class="content">文件大小:</span>
           <span class="prompt"><%= (video.video_size / (1024*1024.0)).round(2) %>M</span> &nbsp
           <span class="content">时长:</span>
