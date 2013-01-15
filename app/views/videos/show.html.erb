@@ -42,36 +42,27 @@
 <% end %>
 </div>
 
-<div class="publish">
-  <% if @video.draft? %>
-    <a href="<%= publish_video_path(@video, Video.statuses.publish(true)) %>" class="btn btn-success">
-      通过
-    </a>
-  <% end -%>
-  <% if @video.publish? %>
-    <a href="<%= publish_video_path(@video, Video.statuses.draft(true)) %>" class="btn btn-danger">
-      未通过
-    </a>
-  <% end -%>
-</div>
-<% if @video.comments.count > 0 %>
-  <div class= "comment">
+<% if !@video.comments.blank? %>
+  <div class= "comments">
     <h4>历史评语</h4>
-    <% @video.comments.each_with_index do |comment, index| %>
-    		<% if @video.comments.count != index %>
-    			<p><span><%= l comment.created_at.to_time, :format => :long %></span><%= comment.body %></p>
-    		<% end %>
+    <% @video.comments.compact.each do |comment| %>
+      <% if !comment.new_record? %>
+  			<p>
+          <%= comment.body %>
+          <span><%= l comment.created_at.to_time, :format => :long %></span>
+        </p>
+      <% end %>
     <% end %>
   </div>
 <% end %>
 
 <%= simple_form_for @video do |f| %>
+  <%= f.input :status_cd, :collection => Video.statuses_for_select(:value).drop(1), :include_blank => false, :input_html => { :class => "span-full" } %>
   <%= f.fields_for :comments, @comment do |c|  %>  
     <%= c.input :body, :as => :text, :input_html => { :class => "span-full" } %>
   <% end %>
 	<div class="form-actions">
     <button type="submit" class="btn btn-primary">
-    	<i class="icon-save icon-large"></i>
     	<b><%= t("helpers.submit.comment") %></b>
     </button>
 	</div>

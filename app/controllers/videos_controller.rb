@@ -1,22 +1,17 @@
 class VideosController < ApplicationController
 	def index
-		@videos = Video.page(params[:page]).per(5).created_desc
+		@videos = Video.page(params[:page]).per(5).status_asc
 	end
 
 	def show
-    @video = Video.find params[:id]
+    @video = Video.find(params[:id])
     @comment = @video.comments.new
 	end
   
   def update
 		@video = Video.find params[:id]
-    count = @video.comments.count
     if @video.update_attributes params[:video]
-      if count < @video.comments.count
-     	 redirect_to video_path(@video), :notice => t("helpers.messages.new", :model_name => Comment.model_name.human)
-      else
-        redirect_to video_path(@video)
-      end
+     	 redirect_to videos_path, :notice => t("helpers.messages.new", :model_name => Comment.model_name.human)
     else
      	render :show
     end

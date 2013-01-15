@@ -11,6 +11,15 @@ module ApplicationHelper
 	  content_for(:title) { page_title }
 	end
   
+  def video_status(video)
+    video_label = case video.status.to_s
+      when 'unaudited' then 'info'
+      when 'rejected'  then 'important'
+      when 'passed'    then 'success'
+    end
+    content_tag(:span, t("activerecord.enums.video.statuses.#{video.status}"), :class => "label label-#{video_label}")
+  end
+  
 	def error_messages_for(*params)
     options = params.extract_options!.symbolize_keys
 

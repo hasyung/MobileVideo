@@ -10,6 +10,7 @@
   	<% end -%>
   	<%= error_messages_for @video, :class => "control-group alert alert-error fade in", :close => :true %>
 	  <%= f.input :name, :input_html => { :class => "span-full" } %>
+    <%= f.input :status_cd, :collection => Video.statuses_for_select(:value), :include_blank => false %>
 	  <%= f.input :video, :as => :file %>
      <%= f.input :duration, :as => :string %>
    	<%= f.input :cover, :as => :file %>
