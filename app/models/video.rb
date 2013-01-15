@@ -11,7 +11,7 @@ class Video < ActiveRecord::Base
   before_save :update_video_attributes, :update_cover_attributes
 
   # SimpleEnum
-  as_enum :status, { :draft => 0, :publish => 1 }
+  as_enum :status, { unaudited: 0, rejected: 1, passed: 2 }
   
   # Carrierwave
   mount_uploader :video, VideoUploader
@@ -33,6 +33,7 @@ class Video < ActiveRecord::Base
   
   # Scopes
   scope :created_desc, order("created_at DESC")
+  scope :status_asc, order("status_cd ASC")
   scope :search_name, lambda { |name| where("ucase(`videos`.`name`) like concat('%',ucase(?),'%')", name) }
 
   # PrivateMethods

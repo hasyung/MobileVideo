@@ -16,6 +16,10 @@ body {
   vertical-align: baseline;
 }
 
+.span-full {
+  width: 98%;
+}
+
 /* 表单 */
 .simple_form .help-block {
   color: #ccc;
@@ -140,7 +144,7 @@ div.search .btn {
   padding-top:15px;
   padding-bottom:5px;
 }
-.comment h4, #videos .simple_form label {
+.comments h4, #videos .simple_form label {
   color:#000;
   font-weight: bold;
   font-size:15px;
@@ -157,15 +161,16 @@ div.search .btn {
   padding-bottom:7px;
 }
 
-.comment {
+.comments {
   text-align:left;
+  margin-bottom: 20px;
 }
-.comment span {
+.comments span {
   color:#999;
   font-size:12px;
   padding-right:10px;
 }
-.comment p {
+.comments p {
   margin-top:5px;
   margin-bottom:3px;
   margin-left:15px;

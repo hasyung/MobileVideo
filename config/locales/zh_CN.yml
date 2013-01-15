@@ -260,8 +260,9 @@
     enums:
       video:
         statuses:
-          draft: "待审核"
-          publish: "审核通过"
+          unaudited: "未查看"
+          rejected: "已驳回"
+          passed: "已通过"
           
   helpers:
     select:
