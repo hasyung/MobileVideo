@@ -50,20 +50,6 @@
 		<% end -%>
 	 	
 	</div>
-	<% if %w(show).include?(action_name) -%>				
-		<div class="btn-group">
-		  <% if @video.draft? %>
-		  	<a href="#" class="btn btn-success">
-		      <i class="icon-lock icon-large"></i>
-		    </a>
-		  <% end -%>
-		  <% if @video.publish? %>
-		  	<a href="#" class="btn btn-success">
-		      <i class="icon-unlock icon-large"></i>
-		    </a>
-		  <% end -%>
-		</div>
-	<% end %>
 	<div class="btn-group pull-right">
 		<div class="controls pagination-right search">
 		    <%= simple_form_for :video, :url => search_admin_videos_path do |v| -%>
